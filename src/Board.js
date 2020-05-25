@@ -2,10 +2,15 @@ import React from 'react'
 import Square from './Square'
 
 class Board extends React.Component {
-    renderSquare(i) {
-      return <Square />;
+    state = {
+        squares: Array(9).fill(null)
     }
-  
+    renderSquare(i) {
+      return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}/>;
+    }
+    handleClick(i) {
+        console.log(i)
+    }
     render() {
       const status = 'Next player: X';
   
