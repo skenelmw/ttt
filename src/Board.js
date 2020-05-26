@@ -3,13 +3,33 @@ import Square from './Square'
 
 class Board extends React.Component {
     state = {
-        squares: Array(9).fill(null)
+        squares: Array(9).fill(null),
+        isXTurn: true
     }
     renderSquare(i) {
-      return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}/>;
+      const val = this.state.squares[i]
+      return <Square value={val} onClick={() => this.handleClick(i)}/>;
     }
     handleClick(i) {
-        console.log(i)
+      // Lily:
+      // let write = ""
+      // if (this.state.turn){
+      //   write = 'X'
+      //   this.setState({turn: false})
+      // } else {
+      //   write = 'O'
+      //   this.setState({turn: true})
+      // }
+      // const squares = this.state.squares.slice()
+      // squares[i] = write
+      // this.setState({squares})
+      
+      // Cam:
+      const squares = this.state.squares.slice()
+      squares[i] = this.state.isXTurn ? 'X' : 'O'
+      this.setState({squares, isXTurn: !this.state.isXTurn})
+
+
     }
     render() {
       const status = 'Next player: X';
