@@ -1,5 +1,6 @@
 import React from 'react'
 import Square from './Square'
+import calculateWinner from './util'
 
 class Board extends React.Component {
     state = {
@@ -11,28 +12,19 @@ class Board extends React.Component {
       return <Square value={val} onClick={() => this.handleClick(i)}/>;
     }
     handleClick(i) {
-      // Lily:
-      // let write = ""
-      // if (this.state.turn){
-      //   write = 'X'
-      //   this.setState({turn: false})
-      // } else {
-      //   write = 'O'
-      //   this.setState({turn: true})
-      // }
-      // const squares = this.state.squares.slice()
-      // squares[i] = write
-      // this.setState({squares})
-      
-      // Cam:
+    
       const squares = this.state.squares.slice()
+      if (calculateWinner(squares) || squares[i]) {
+        return;
+      }
       squares[i] = this.state.isXTurn ? 'X' : 'O'
       this.setState({squares, isXTurn: !this.state.isXTurn})
 
 
     }
     render() {
-      const status = 'Next player: X';
+      const winner = calculateWinner(this.state.squares)
+      let status = winner ? 'Winner: ' + winner : 'Next player: ' + (this.state.isXTurn ? 'X' : 'O');
   
       return (
         <div>
