@@ -3,32 +3,14 @@ import Square from './Square'
 import calculateWinner from './util'
 
 class Board extends React.Component {
-    state = {
-        squares: Array(9).fill(null),
-        isXTurn: true
-    }
     renderSquare(i) {
-      const val = this.state.squares[i]
-      return <Square value={val} onClick={() => this.handleClick(i)}/>;
+      const val = this.props.squares[i]
+      return <Square value={val} onClick={() => this.props.onClick(i)}/>;
     }
-    handleClick(i) {
     
-      const squares = this.state.squares.slice()
-      if (calculateWinner(squares) || squares[i]) {
-        return;
-      }
-      squares[i] = this.state.isXTurn ? 'X' : 'O'
-      this.setState({squares, isXTurn: !this.state.isXTurn})
-
-
-    }
     render() {
-      const winner = calculateWinner(this.state.squares)
-      let status = winner ? 'Winner: ' + winner : 'Next player: ' + (this.state.isXTurn ? 'X' : 'O');
-  
       return (
         <div>
-          <div className="status">{status}</div>
           <div className="board-row">
             {this.renderSquare(0)}
             {this.renderSquare(1)}
